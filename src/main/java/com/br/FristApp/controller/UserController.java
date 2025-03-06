@@ -1,9 +1,6 @@
 package com.br.FristApp.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
@@ -18,6 +15,10 @@ public class UserController {
     public String helloUser(@PathVariable String name){
         return "Hello " + name + " nice to meet you!!";
     }
+    @GetMapping("/hello")
+        public String hello(@RequestParam(name = "nome")String nome){
+            return "Hello " + nome + " nice to meet you!!";
 
+    }
 }
 

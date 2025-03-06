@@ -33,4 +33,18 @@ public class ProdutoService {
         Produto produtoSalvo = produtoRepository.save(novoProduto); //salva o produto
         return new ProdutoResponseDTO(produtoSalvo.getId(), produtoSalvo.getNome(), produtoSalvo.getPreco()); //retorna o produto salvo
     }
+    public ProdutoResponseDTO atualizarProduto(Long id, ProdutoResponseDTO produtoResponseDTO){
+        Produto produtoExistente = produtoRepository.findByIdd(id)
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado")); //caso não encontre o produto, retorna uma exceção
+        produtoExistente.setNome(produtoResponseDTO.getNome()); //altera o nome do produto
+        produtoExistente.setPreco(produtoResponseDTO.getPreco()); //altera o preço do produto
+        // produtoExistente.setNumeroSerie(produtoResponseDTO.getNumeroSerie()); //altera o numero de serie do produto
+        Produto produtoAtualizado = produtoRepository.update(produtoExistente); //atualiza o produto
+        return new ProdutoResponseDTO(produtoAtualizado.getId(),
+                produtoAtualizado.getNome(),
+                produtoAtualizado.getPreco()); //retorna o produto atualizado
+    }
+    public void excluirProduto(Long id){
+        produtoRepository.deleteById(id); //deleta o produto pelo id
+    }
 }
